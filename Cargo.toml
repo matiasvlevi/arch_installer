@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 terminal-menu = "2.0.4"
+regex = "1"
