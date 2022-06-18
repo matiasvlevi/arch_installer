@@ -4,11 +4,10 @@ pub fn pacstrap(packages: Vec<&str>) {
     let mut pacstrap_cmd = Command::new("pacstrap")
         .arg("/mnt")
         .args(packages)
+        .arg("--noconfirm")
         .stdout(Stdio::piped())
-        .spawn()
+        .output()
         .unwrap();
-    
-    let _result_pacstrap_cmd = pacstrap_cmd.wait().unwrap();
 
     return;
 }
