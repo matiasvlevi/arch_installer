@@ -223,6 +223,15 @@ pub fn partition(separate_home:bool, disk: &str, fstype: &str) {
     let _result_root_fs_cmd = root_fs_cmd.wait().unwrap();
 
     // Create root & boot mount directories
+    let mut mkdir_root = Command::new("mkdir")
+        .arg("-p")
+        .arg("/mnt")
+        .stdout(Stdio::piped())
+        .spawn()
+        .unwrap();
+
+    let _result_mkdir_root = mkdir_root.wait().unwrap();
+
     let mut mkdir_boot = Command::new("mkdir")
         .arg("-p")
         .arg("/mnt/boot/efi")
