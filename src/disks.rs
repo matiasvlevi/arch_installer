@@ -231,7 +231,7 @@ pub fn partition(separate_home:bool, disk: &str, fstype: &str) {
         .unwrap();
 
     let _result_mkdir_root = mkdir_root.wait().unwrap();
-    
+
     // Mount root partition
     let mut mount_root = Command::new("mount")
         .arg(&root_partition)
