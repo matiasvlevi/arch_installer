@@ -5,11 +5,13 @@ pub fn pacstrap(packages: Vec<&str>) {
         .arg("/mnt")
         .args(packages)
         .arg("--noconfirm")
-        .stdout(Stdio::piped())
-        .output()
-        .unwrap();
+        .stdout(Stdio::inherit())
+        .spawn()
+        .expect("Failed");
 
-    println!("status: {}", pacstrap_cmd.status);
+    let output = pacstrap_cmd
+        .wait_with_output()
+        .expect("failed");
 
     return;
 }

@@ -53,7 +53,7 @@ fn main() {
 
     // Base system
     packages::pacstrap(vec![
-        "base"
+        "base", "linux", "linux-firmware"
     ]);
 
     // "base-devel", "linux", "linux-firmware", "sof-firmware",
