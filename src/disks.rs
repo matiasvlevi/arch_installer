@@ -234,12 +234,21 @@ pub fn partition(separate_home:bool, disk: &str, fstype: &str) {
 
     let mut mkdir_boot = Command::new("mkdir")
         .arg("-p")
-        .arg("/mnt/boot/efi")
+        .arg("/mnt/boot")
         .stdout(Stdio::piped())
         .spawn()
         .unwrap();
 
     let _result_mkdir_boot = mkdir_boot.wait().unwrap();
+
+    let mut mkdir_efi = Command::new("mkdir")
+        .arg("-p")
+        .arg("/mnt/boot/efi")
+        .stdout(Stdio::piped())
+        .spawn()
+        .unwrap();
+
+    let _result_mkdir_efi = mkdir_efi.wait().unwrap();
 
     // Mount root partition
     let mut mount_root = Command::new("mount")
