@@ -1,6 +1,5 @@
 pub use std::process::{Command, Stdio};
 pub use std::io::{Read, Write};
-pub use regex::Regex;
 
 pub fn space_as_string(size: u32, unit: &str ) -> String {
     let mut ans = String::new();
@@ -310,4 +309,5 @@ pub fn partition(separate_home:bool, disk: &str, fstype: &str) {
 
     let _result_mount_home = mount_home.wait().unwrap();
 
+    return;
 }

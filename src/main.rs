@@ -1,5 +1,6 @@
 mod disks;
 mod form;
+mod packages;
 
 pub use std::process::{Command, Stdio};
 
@@ -50,6 +51,13 @@ fn main() {
         output.selection_value("File System"),
     );
 
+    // Base system
+    packages::pacstrap(vec![
+        "base", "base-devel", "linux", "linux-firmware", "sof-firmware",
+        "grub", "efibootmgr",
+        "iwd", "networkmanager", "net-tools", "dhcpcd", "wpa_supplicant",
+        "neovim","git","htop","neofetch"
+    ]);
 
     return;
 }
