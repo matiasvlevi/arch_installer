@@ -53,11 +53,13 @@ fn main() {
 
     // Base system
     packages::pacstrap(vec![
-        "base", "base-devel", "linux", "linux-firmware", "sof-firmware",
-        "grub", "efibootmgr",
-        "iwd", "networkmanager", "net-tools", "dhcpcd", "wpa_supplicant",
-        "neovim","git","htop","neofetch"
+        "base"
     ]);
+
+    // "base-devel", "linux", "linux-firmware", "sof-firmware",
+    // "grub", "efibootmgr",
+    // "iwd", "networkmanager", "net-tools", "dhcpcd", "wpa_supplicant",
+    // "neovim","git","htop","neofetch"
 
     return;
 }
