@@ -6,7 +6,7 @@ pub fn data() -> Vec<&'static str> {vec![
     "Root password",
     "Use root password",
     "Separate partition for /home",
-    "Add a swap partition",
-    "File System"
+    "Setup as removable disk",
+    "File System",
+    "Package preset"
 ]}
-

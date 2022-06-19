@@ -8,23 +8,6 @@ pub fn space_as_string(size: u32, unit: &str ) -> String {
     return ans;
 }
 
-fn trim_whitespace(input: &str) -> String {
-    let mut ans:String = String::new();
-    let mut char_before:bool = true;
-    for c in input.chars() {
-        if c != ' ' {
-            // If non-whitespace, push to string
-            ans.push(c);
-            char_before = true;
-        } else if char_before {
-            // If first whitespace, push to string
-            ans.push(c);
-            char_before = false;
-        }
-    }
-    return ans;
-}
-
 fn lsblk_disks() -> Vec<String> {
     let mut cmd_lsblk = Command::new("lsblk").arg("-d")
         .stdout(Stdio::piped())

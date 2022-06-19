@@ -26,8 +26,8 @@ fn main() {
         list("Use root password", vec!["Yes", "No"]),
         list("Separate partition for /home", vec!["Yes", "No"]),
         list("Setup as removable disk", vec!["Yes", "No"]),
-        list("Add a swap partition", vec!["Yes", "No"]),
         list("File System", vec!["ext4", "btrfs"]),
+        list("Package preset", vec!["default", "minimal", "desktop", "server"]),
         back_button("Start Install"),
     ]);
     
@@ -62,17 +62,22 @@ fn main() {
     );
 
     // Install packages
-    packages::pacstrap(vec![
-        "base", "linux", "grub", "efibootmgr"
-    ]);
+    let key: &str = output.selection_value("Package preset");
+    match key {
+        "minimal"=>packages::pacstrap(packages::minimal()),
+        "default"=>packages::pacstrap(packages::default()),
+        "desktop"=>packages::pacstrap(packages::desktop()),
+        "server"=>packages::pacstrap(packages::server()),
+        &_ => todo!()
+    }
 
     // fstab
     disks::genfstab();
 
-    // Host name
+    // // Host name
     user::hostname(output.selection_value("Hostname"));
 
-    // Execute tasks done as /mnt root (Root & User setup, bootloader installation)
+    // // Execute tasks done as /mnt root (Root & User setup, bootloader installation)
     chroot::tasks(
         output.selection_value("User"),
         output.selection_value("User password"),
