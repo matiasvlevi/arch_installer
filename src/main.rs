@@ -27,7 +27,7 @@ fn main() {
         list("Separate partition for /home", vec!["Yes", "No"]),
         list("Setup as removable disk", vec!["Yes", "No"]),
         list("Add a swap partition", vec!["Yes", "No"]),
-        list("File System", vec!["ext4"]),
+        list("File System", vec!["ext4", "btrfs"]),
         back_button("Start Install"),
     ]);
     
@@ -55,21 +55,24 @@ fn main() {
     // Arch Install
 
     // Partitioning
-    // disks::partition(
-    //     if output.selection_value("Separate partition for /home") == "Yes" { true } else { false },
-    //     output.selection_value("Select disk"),
-    //     output.selection_value("File System"),
-    // );
+    disks::partition(
+        if output.selection_value("Separate partition for /home") == "Yes" { true } else { false },
+        output.selection_value("Select disk"),
+        output.selection_value("File System"),
+    );
 
-    // // Install packages
-    // packages::pacstrap(vec![
-    //     "base"
-    // ]);
+    // Install packages
+    packages::pacstrap(vec![
+        "base", "linux", "grub", "efibootmgr"
+    ]);
 
-    // disks::genfstab();
+    // fstab
+    disks::genfstab();
 
+    // Host name
     user::hostname(output.selection_value("Hostname"));
 
+    // Execute tasks done as /mnt root (Root & User setup, bootloader installation)
     chroot::tasks(
         output.selection_value("User"),
         output.selection_value("User password"),

@@ -109,6 +109,10 @@ pub fn partition(separate_home:bool, disk: &str, fstype: &str) {
     let home_partition_size_begin_s: String = space_as_string(boot_partition_size + swap_partition_size + root_partition_size + 3, "MB");
     let home_partition_size_end_s: String = String::from("100%");
 
+    // Make File System command
+    let mut mkfs_cmd = String::from("mkfs.");
+    mkfs_cmd.push_str(fstype);
+
     // Wipe filesystem
     let mut wipefs_cmd = Command::new("wipefs")
         .arg("-a")
@@ -212,8 +216,8 @@ pub fn partition(separate_home:bool, disk: &str, fstype: &str) {
 
     // Create root file system
     let mut root_partition = disk.to_string().clone();
-    root_partition.push_str("3"); 
-    let mut root_fs_cmd = Command::new("mkfs.ext4")
+    root_partition.push_str("3");
+    let mut root_fs_cmd = Command::new(&mkfs_cmd)
         .arg(&root_partition)
         .stdout(Stdio::piped())
         .spawn()
@@ -281,7 +285,7 @@ pub fn partition(separate_home:bool, disk: &str, fstype: &str) {
     // Create File System on home directory
     let mut home_partition = disk.to_string().clone();
     home_partition.push_str("4"); 
-    let mut home_fs_cmd = Command::new("mkfs.ext4")
+    let mut home_fs_cmd = Command::new(&mkfs_cmd)
         .arg(&home_partition)
         .stdout(Stdio::piped())
         .spawn()
@@ -314,7 +318,7 @@ pub fn partition(separate_home:bool, disk: &str, fstype: &str) {
 
 pub fn genfstab() {
     // Mount home directory
-    let mut genfstab_cmd = Command::new("genfstab")
+    let genfstab_cmd = Command::new("genfstab")
         .arg("-U")    
         .arg("-p")
         .arg("/mnt")  

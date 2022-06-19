@@ -53,20 +53,27 @@ pub fn tasks(
 
     // Bootloader config
     chroot_cmd.push_str("grub-mkconfig -o /boot/grub/grub.cfg");
+    chroot_cmd.push_str(" && ");
+
+    // Remove self
+    chroot_cmd.push_str("rm -f /install.sh");
 
     std::fs::write("/mnt/install.sh", &chroot_cmd).expect("failed to write install script");
 
-    println!("\n{}\n",chroot_cmd);
+    // Disable quitting
+    ctrlc::set_handler(move || {
+        println!("Can't abort install");
+    })
+    .expect("failed to set ctrlc handler");
 
-    let mut arch_chroot = Command::new("arch-chroot")
+    Command::new("arch-chroot")
         .arg("/mnt")
         .arg("/bin/bash")
         .arg("-c")
-        .arg("\"source /install.sh\"")
+        .arg(r#"source /install.sh"#)
         .stdout(Stdio::inherit())
         .spawn()
         .expect("failed");
- //       .unwrap();
     
     return;
 }

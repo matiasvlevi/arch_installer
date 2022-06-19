@@ -41,7 +41,7 @@ pub fn pacstrap(packages: Vec<&str>) {
         .spawn()
         .expect("Failed");
 
-    let output = pacstrap_cmd
+    pacstrap_cmd
         .wait_with_output()
         .expect("failed");
 
