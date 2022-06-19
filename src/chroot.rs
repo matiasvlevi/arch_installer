@@ -29,21 +29,22 @@ pub fn tasks(
     chroot_cmd.push_str(root_password);
     chroot_cmd.push_str("\\n");
     chroot_cmd.push_str(root_password);
-    chroot_cmd.push_str("' | passwd ;");
-
-    // User creation
-    chroot_cmd.push_str("useradd -m -G wheel -s /bin/bash ");
-    chroot_cmd.push_str(user_name);
-    chroot_cmd.push_str(" && ");
-
-    // User password
-    chroot_cmd.push_str("echo -e '");
-    chroot_cmd.push_str(user_password);
-    chroot_cmd.push_str("\\n");
-    chroot_cmd.push_str(user_password);
     chroot_cmd.push_str("' | passwd ");
-    chroot_cmd.push_str(user_name);
     chroot_cmd.push_str(" && ");
+
+    // // User creation
+    // chroot_cmd.push_str("useradd -m -G wheel -s /bin/bash ");
+    // chroot_cmd.push_str(user_name);
+    // chroot_cmd.push_str(" && ");
+
+    // // User password
+    // chroot_cmd.push_str("echo -e '");
+    // chroot_cmd.push_str(user_password);
+    // chroot_cmd.push_str("\\n");
+    // chroot_cmd.push_str(user_password);
+    // chroot_cmd.push_str("' | passwd ");
+    // chroot_cmd.push_str(user_name);
+    // chroot_cmd.push_str(" && ");
 
     // Bootloader installation
     let grub_install_cmd: &str = &grub_install(is_removable);
