@@ -62,7 +62,7 @@ pub fn tasks(
         .arg("/mnt")
         .arg("/bin/bash")
         .arg("-c")
-        .arg("\"sh /install.sh\"")
+        .arg("\"lsblk\"")
         .stdout(Stdio::inherit())
         .spawn()
         .unwrap();
