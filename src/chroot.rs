@@ -44,7 +44,7 @@ pub fn tasks(
     chroot_cmd.push_str(user_password);
     chroot_cmd.push_str("' | passwd ");
     chroot_cmd.push_str(user_name);
-    // chroot_cmd.push_str(" && ");
+    chroot_cmd.push_str(" && ");
 
     // Bootloader installation
     let grub_install_cmd: &str = &grub_install(is_removable);
@@ -62,7 +62,7 @@ pub fn tasks(
         .arg("/mnt")
         .arg("/bin/bash")
         .arg("-c")
-        .arg("\"echo -e wazza\nwazza \"")
+        .arg("\"source /install.sh\"")
         .stdout(Stdio::inherit())
         .spawn()
         .unwrap();
