@@ -43,21 +43,6 @@ fn lsblk_disks() -> Vec<String> {
     return ans;
 }
 
-pub fn get_size(disk: &str) -> String {
-    let lsblk_output = lsblk_disks();
-    for line in lsblk_output {
-        let fline = trim_whitespace(&line);
-        let disk_entry: Vec<&str> = fline.split(" ").collect();
-        let mut device = String::from("/dev/");
-        device.push_str(disk_entry[0]);
-        if device == disk {
-            return disk_entry[3].to_string();
-        }
-    }
-    return "0B".to_string();
-}
-
-
 pub fn scan() -> Vec<String> {
 
     let mut disks: Vec<String> = Vec::new();
