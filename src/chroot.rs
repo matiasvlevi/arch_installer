@@ -22,7 +22,7 @@ pub fn tasks(
     root_password: &str,
     is_removable: bool
 ) {
-    let mut chroot_cmd = String::from("\"");
+    let mut chroot_cmd = String::new();
 
     // Root password
     chroot_cmd.push_str("echo -e '");
@@ -47,13 +47,14 @@ pub fn tasks(
     // chroot_cmd.push_str(" && ");
 
     // Bootloader installation
-    // let grub_install_cmd: &str = &grub_install(is_removable);
-    // chroot_cmd.push_str(grub_install_cmd);
-    // chroot_cmd.push_str(" && ");
+    let grub_install_cmd: &str = &grub_install(is_removable);
+    chroot_cmd.push_str(grub_install_cmd);
+    chroot_cmd.push_str(" && ");
 
-    // // Bootloader config
-    // chroot_cmd.push_str("grub-mkconfig -o /boot/grub/grub.cfg");
-    chroot_cmd.push('\"');
+    // Bootloader config
+    chroot_cmd.push_str("grub-mkconfig -o /boot/grub/grub.cfg");
+
+    std::fs::write("/mnt/install.sh", &chroot_cmd).expect("failed to write install script");
 
     println!("\n{}\n",chroot_cmd);
 
@@ -61,7 +62,7 @@ pub fn tasks(
         .arg("/mnt")
         .arg("/bin/bash")
         .arg("-c")
-        .arg(chroot_cmd)
+        .arg("\"sh /install.sh\"")
         .stdout(Stdio::inherit())
         .spawn()
         .unwrap();
