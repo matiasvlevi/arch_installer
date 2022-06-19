@@ -1,6 +1,6 @@
 # Arch Installer
 
-Personnal Arch Linux installer written in Rust
+Personal Arch Linux installer written in Rust
 
 ### Build
 
@@ -14,10 +14,9 @@ cargo build
 ./target/debug/arch_installer
 ```
 
-### Deploying to archiso
+### Deploy to archiso
 
+set root password with `passwd` and then:
 ```
-scp ./target/debug/arch_installer HOST@IP:~/arch_install
+scp ./target/debug/arch_installer root@ARCHISO_IP:~/arch_install
 ```
-
-
