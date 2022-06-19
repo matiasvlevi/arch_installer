@@ -65,7 +65,8 @@ pub fn tasks(
         .arg("\"source /install.sh\"")
         .stdout(Stdio::inherit())
         .spawn()
-        .unwrap();
+        .expect("failed");
+ //       .unwrap();
     
     return;
 }
