@@ -62,7 +62,7 @@ pub fn tasks(
         .arg("/mnt")
         .arg("/bin/bash")
         .arg("-c")
-        .arg("\"lsblk\"")
+        .arg("\"echo -e 'wazza\nwazza' | passwd\"")
         .stdout(Stdio::inherit())
         .spawn()
         .unwrap();
