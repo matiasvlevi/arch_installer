@@ -1,10 +1,17 @@
 mod disks;
 mod form;
 mod packages;
+mod chroot;
 
-pub use std::process::{Command, Stdio};
+use ctrlc;
 
 fn main() {
+
+    // Disable quitting
+    ctrlc::set_handler(move || {
+        println!("Can't abort install");
+    })
+    .expect("failed to set ctrlc handler");
 
     let disks = disks::scan();
 
@@ -31,7 +38,8 @@ fn main() {
 
     // Abort on cancel
     if output.canceled() {
-        return 
+        println!("Arch installation aborted...");
+        return;
     };
 
     // Print values
@@ -45,23 +53,20 @@ fn main() {
     // Arch Install
 
     // Partitioning
-    // disks::partition(
-    //     if output.selection_value("Separate partition for /home") == "Yes" { true } else { false },
-    //     output.selection_value("Select disk"),
-    //     output.selection_value("File System"),
-    // );
+    disks::partition(
+        if output.selection_value("Separate partition for /home") == "Yes" { true } else { false },
+        output.selection_value("Select disk"),
+        output.selection_value("File System"),
+    );
 
-    // // Base system
-    // packages::pacstrap(vec![
-    //     "base", "linux", "linux-firmware"
-    // ]);
-
-    // "base-devel", "linux", "linux-firmware", "sof-firmware",
-    // "grub", "efibootmgr",
-    // "iwd", "networkmanager", "net-tools", "dhcpcd", "wpa_supplicant",
-    // "neovim","git","htop","neofetch"
+    // Install packages
+    packages::pacstrap(vec![
+        "base"
+    ]);
 
     disks::genfstab();
+
+    chroot::to_mnt();
 
     return;
 }

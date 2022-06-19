@@ -7,4 +7,4 @@ edition = "2021"
 
 [dependencies]
 terminal-menu = "2.0.4"
-regex = "1"
+ctrlc = "3.2.2"
