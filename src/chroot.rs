@@ -9,6 +9,7 @@ pub fn grub_install(is_removable: bool) -> String {
         String::from("grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARCH");
 
     for option in optional {
+        grub_install_cmd.push(' ');
         grub_install_cmd.push_str(option);
     }
 
