@@ -22,19 +22,23 @@ pub fn tasks(
     is_removable: bool
 ) {
 
-    let mut root_pw_cmd = String::from("\"echo ");
+    let mut root_pw_cmd = String::from("\"echo -e \"");
     root_pw_cmd.push_str(root_password);
-    root_pw_cmd.push_str(" | passwd --stdin \"");
+    root_pw_cmd.push('\n');
+    root_pw_cmd.push_str(root_password);
+    root_pw_cmd.push_str("\" | passwd \"");
 
-    let mut create_user_command = String::from("\"useradd -m -G wheel -s /bin/bash ");
-    create_user_command.push_str(user_name);
-    create_user_command.push('\"');
+    let mut create_user_cmd = String::from("\"useradd -m -G wheel -s /bin/bash ");
+    create_user_cmd.push_str(user_name);
+    create_user_cmd.push('\"');
 
-    let mut user_pw_command = String::from("\"echo ");
-    user_pw_command.push_str(user_password);
-    user_pw_command.push_str(" | passwd --stdin ");
-    user_pw_command.push_str(user_name);
-    user_pw_command.push('\"');
+    let mut user_pw_cmd = String::from("\"echo -e \"");
+    user_pw_cmd.push_str(user_password);
+    user_pw_cmd.push('\n');
+    user_pw_cmd.push_str(user_password);
+    user_pw_cmd.push_str("\" | passwd ");
+    user_pw_cmd.push_str(user_name);
+    user_pw_cmd.push('\"');
 
     let grub_install_cmd: &str = &grub_install(is_removable);
     
@@ -45,8 +49,8 @@ pub fn tasks(
         // Login setup
         .args(vec![
             root_pw_cmd,
-            create_user_command,
-            user_pw_command
+            create_user_cmd,
+            user_pw_cmd
         ])
         // Bootloader installation
         .args(vec![
