@@ -25,6 +25,7 @@ fn main() {
         string("Root password", "admin", false),
         list("Use root password", vec!["Yes", "No"]),
         list("Separate partition for /home", vec!["Yes", "No"]),
+        list("Setup as removable disk", vec!["Yes", "No"]),
         list("Add a swap partition", vec!["Yes", "No"]),
         list("File System", vec!["ext4"]),
         back_button("Start Install"),
@@ -67,10 +68,14 @@ fn main() {
 
     // disks::genfstab();
 
-
     user::hostname(output.selection_value("Hostname"));
 
-    chroot::to_mnt();
+    chroot::tasks(
+        output.selection_value("User"),
+        output.selection_value("User password"),
+        output.selection_value("Root password"),
+        if output.selection_value("Setup as removable disk") == "Yes" { true } else { false }
+    );
 
     return;
 }
