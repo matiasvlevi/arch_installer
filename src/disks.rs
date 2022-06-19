@@ -311,3 +311,17 @@ pub fn partition(separate_home:bool, disk: &str, fstype: &str) {
 
     return;
 }
+
+pub fn genfstab() {
+    // Mount home directory
+    let mut genfstab_cmd = Command::new("genfstab")
+        .arg("-U")    
+        .arg("-p")
+        .arg("/mnt")  
+        .stdout(Stdio::piped())
+        .output()
+        .expect("failed to generate fstab file");
+
+    let output = String::from_utf8(genfstab_cmd.stdout).unwrap();
+    std::fs::write("/mnt/etc/fstab", &output).expect("Failed to write file");
+} 

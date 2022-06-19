@@ -45,21 +45,23 @@ fn main() {
     // Arch Install
 
     // Partitioning
-    disks::partition(
-        if output.selection_value("Separate partition for /home") == "Yes" { true } else { false },
-        output.selection_value("Select disk"),
-        output.selection_value("File System"),
-    );
+    // disks::partition(
+    //     if output.selection_value("Separate partition for /home") == "Yes" { true } else { false },
+    //     output.selection_value("Select disk"),
+    //     output.selection_value("File System"),
+    // );
 
-    // Base system
-    packages::pacstrap(vec![
-        "base", "linux", "linux-firmware"
-    ]);
+    // // Base system
+    // packages::pacstrap(vec![
+    //     "base", "linux", "linux-firmware"
+    // ]);
 
     // "base-devel", "linux", "linux-firmware", "sof-firmware",
     // "grub", "efibootmgr",
     // "iwd", "networkmanager", "net-tools", "dhcpcd", "wpa_supplicant",
     // "neovim","git","htop","neofetch"
+
+    disks::genfstab();
 
     return;
 }
