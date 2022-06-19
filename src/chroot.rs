@@ -62,7 +62,7 @@ pub fn tasks(
         .arg("/mnt")
         .arg("/bin/bash")
         .arg("-c")
-        .arg("\"echo -e \"wazza\nwazza\" | passwd\"")
+        .arg("\"echo -e 'wazza\nwazza' \"")
         .stdout(Stdio::inherit())
         .spawn()
         .unwrap();
