@@ -27,7 +27,7 @@ pub fn tasks(
     // Root password
     chroot_cmd.push_str("echo -e '");
     chroot_cmd.push_str(root_password);
-    chroot_cmd.push('\n');
+    chroot_cmd.push_str("\\n");
     chroot_cmd.push_str(root_password);
     chroot_cmd.push_str("' | passwd ;");
 
@@ -39,7 +39,7 @@ pub fn tasks(
     // User password
     chroot_cmd.push_str("echo -e '");
     chroot_cmd.push_str(user_password);
-    chroot_cmd.push('\n');
+    chroot_cmd.push_str("\\n");
     chroot_cmd.push_str(user_password);
     chroot_cmd.push_str("' | passwd ");
     chroot_cmd.push_str(user_name);
