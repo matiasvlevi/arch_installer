@@ -53,18 +53,18 @@ fn main() {
     // Arch Install
 
     // Partitioning
-    disks::partition(
-        if output.selection_value("Separate partition for /home") == "Yes" { true } else { false },
-        output.selection_value("Select disk"),
-        output.selection_value("File System"),
-    );
+    // disks::partition(
+    //     if output.selection_value("Separate partition for /home") == "Yes" { true } else { false },
+    //     output.selection_value("Select disk"),
+    //     output.selection_value("File System"),
+    // );
 
-    // Install packages
-    packages::pacstrap(vec![
-        "base"
-    ]);
+    // // Install packages
+    // packages::pacstrap(vec![
+    //     "base"
+    // ]);
 
-    disks::genfstab();
+    // disks::genfstab();
 
     chroot::to_mnt();
 
