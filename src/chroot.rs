@@ -55,6 +55,8 @@ pub fn tasks(
     // chroot_cmd.push_str("grub-mkconfig -o /boot/grub/grub.cfg");
     chroot_cmd.push('\"');
 
+    println!("\n{}\n",chroot_cmd);
+
     let mut arch_chroot = Command::new("arch-chroot")
         .arg("/mnt")
         .arg("/bin/bash")
