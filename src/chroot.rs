@@ -29,21 +29,21 @@ pub fn tasks(
     chroot_cmd.push_str(root_password);
     chroot_cmd.push_str("\\n");
     chroot_cmd.push_str(root_password);
-    chroot_cmd.push_str("' | passwd ");
-    // chroot_cmd.push_str(" && ");
+    chroot_cmd.push_str("' | passwd");
+    chroot_cmd.push_str(" && ");
 
     // // User creation
-    // chroot_cmd.push_str("useradd -m -G wheel -s /bin/bash ");
-    // chroot_cmd.push_str(user_name);
-    // chroot_cmd.push_str(" && ");
+    chroot_cmd.push_str("useradd -m -G wheel -s /bin/bash ");
+    chroot_cmd.push_str(user_name);
+    chroot_cmd.push_str(" && ");
 
     // // User password
-    // chroot_cmd.push_str("echo -e '");
-    // chroot_cmd.push_str(user_password);
-    // chroot_cmd.push_str("\\n");
-    // chroot_cmd.push_str(user_password);
-    // chroot_cmd.push_str("' | passwd ");
-    // chroot_cmd.push_str(user_name);
+    chroot_cmd.push_str("echo -e '");
+    chroot_cmd.push_str(user_password);
+    chroot_cmd.push_str("\\n");
+    chroot_cmd.push_str(user_password);
+    chroot_cmd.push_str("' | passwd ");
+    chroot_cmd.push_str(user_name);
     // chroot_cmd.push_str(" && ");
 
     // Bootloader installation
@@ -62,7 +62,7 @@ pub fn tasks(
         .arg("/bin/bash")
         .arg("-c")
         .arg(chroot_cmd)
-        .stdout(Stdio::piped())
+        .stdout(Stdio::inherit())
         .output()
         .unwrap();
     
