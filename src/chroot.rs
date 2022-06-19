@@ -30,7 +30,7 @@ pub fn tasks(
     chroot_cmd.push_str("\\n");
     chroot_cmd.push_str(root_password);
     chroot_cmd.push_str("' | passwd ");
-    chroot_cmd.push_str(" && ");
+    // chroot_cmd.push_str(" && ");
 
     // // User creation
     // chroot_cmd.push_str("useradd -m -G wheel -s /bin/bash ");
@@ -47,12 +47,12 @@ pub fn tasks(
     // chroot_cmd.push_str(" && ");
 
     // Bootloader installation
-    let grub_install_cmd: &str = &grub_install(is_removable);
-    chroot_cmd.push_str(grub_install_cmd);
-    chroot_cmd.push_str(" && ");
+    // let grub_install_cmd: &str = &grub_install(is_removable);
+    // chroot_cmd.push_str(grub_install_cmd);
+    // chroot_cmd.push_str(" && ");
 
-    // Bootloader config
-    chroot_cmd.push_str("grub-mkconfig -o /boot/grub/grub.cfg");
+    // // Bootloader config
+    // chroot_cmd.push_str("grub-mkconfig -o /boot/grub/grub.cfg");
     chroot_cmd.push('\"');
 
     let mut arch_chroot = Command::new("arch-chroot")
