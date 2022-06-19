@@ -6,10 +6,7 @@ pub fn to_mnt() {
         .stdout(Stdio::piped())
         .spawn()
         .unwrap();
-
-    let _result_arch_chroot = arch_chroot.wait().unwrap();
     
-
     let lsblk = Command::new("lsblk")
         .stdout(Stdio::inherit())
         .output()

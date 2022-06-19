@@ -2,6 +2,7 @@ mod disks;
 mod form;
 mod packages;
 mod chroot;
+mod user;
 
 use ctrlc;
 
@@ -65,6 +66,9 @@ fn main() {
     // ]);
 
     // disks::genfstab();
+
+
+    user::hostname(output.selection_value("Hostname"));
 
     chroot::to_mnt();
 
