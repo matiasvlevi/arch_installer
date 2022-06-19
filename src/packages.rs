@@ -22,7 +22,6 @@ pub fn desktop() -> Vec<&'static str> {vec![
     "neovim","git","htop","neofetch"
 ]}
 
-
 pub fn server() -> Vec<&'static str> {vec![
     "base", "base-devel", "linux", "linux-firmware",
     "grub", "efibootmgr",
@@ -30,7 +29,6 @@ pub fn server() -> Vec<&'static str> {vec![
     "openssh", "nginx", "vsftpd", "apache", "nodejs-lts-gallium", "php",
     "vim", "git", "htop"
 ]}
-
 
 pub fn pacstrap(packages: Vec<&str>) {
     let pacstrap_cmd = Command::new("pacstrap")
