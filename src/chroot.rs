@@ -63,7 +63,7 @@ pub fn tasks(
         .arg("-c")
         .arg(chroot_cmd)
         .stdout(Stdio::piped())
-        .spawn()
+        .output()
         .unwrap();
     
     return;
